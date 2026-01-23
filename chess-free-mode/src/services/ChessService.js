@@ -21,6 +21,8 @@ class ChessService {
     const piece = board[fromRow][fromCol];
     if (!piece) return false;
 
+    if (fromRow === toRow && fromCol === toCol) return false;
+
     const replaced = board[toRow][toCol];
 
     board[toRow][toCol] = piece;

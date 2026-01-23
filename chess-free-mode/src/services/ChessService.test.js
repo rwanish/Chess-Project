@@ -180,14 +180,22 @@ describe('ChessService', () => {
   });
 
   describe('Cas limites', () => {
-    it('devrait gérer le déplacement vers la même position', () => {
-      const board = chessService.getBoard();
-      const pieceAvant = board[6][0];
-      
-      chessService.movePiece(6, 0, 6, 0); // Même position
-      
-      expect(board[6][0]).toEqual(pieceAvant);
-    });
+   it('devrait gérer le déplacement vers la même position', () => {
+  const board = chessService.getBoard();
+  
+  // Déplacer vers la même position ne devrait rien faire
+  const result = chessService.movePiece(6, 0, 6, 0);
+  
+  // Le déplacement doit être refusé
+  expect(result).toBe(false);
+  
+  // La pièce est toujours à sa position
+  expect(board[6][0]).toMatchObject({ color: 'white', type: 'pawn' });
+  
+  // L'historique ne doit PAS être mis à jour
+  const history = chessService.getHistory();
+  expect(history).toHaveLength(0);
+});
 
     it('devrait gérer les déplacements en chaîne', () => {
       // Déplacer plusieurs fois la même pièce
