@@ -57,9 +57,9 @@ pipeline {
                         alwaysLinkToLastBuild: false,
                         icon: '',
                         keepAll: true,
-                        reportDir: 'playwright-report',
+                        reportDir: 'html',
                         reportFiles: 'index.html',
-                        reportName: 'PlaywrightReport',
+                        reportName: 'VitestReport'
                         reportTitles: '',
                         useWrapperFileDirectly: true
                     ])
