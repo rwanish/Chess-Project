@@ -1,14 +1,69 @@
 pipeline {
-    agent any
+    agent none
     stages {
-        stage('step1') {
+        stage('Build') {
+            agent { 
+                docker { 
+                    image 'mcr.microsoft.com/playwright:v1.57.0-noble'
+                }
+            }
             steps {
-                sh 'echo étape un'
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
-        stage('step2') {
+        
+        stage('Unit Tests') {
+            agent { 
+                docker { 
+                    image 'mcr.microsoft.com/playwright:v1.57.0-noble'
+                }
+            }
             steps {
-                sh 'echo étape deux'
+                sh 'npm install'
+                sh 'npm run test'
+            }
+            post {
+                always {
+                    publishHTML([
+                        allowMissing: true,
+                        alwaysLinkToLastBuild: false,
+                        icon: '',
+                        keepAll: true,
+                        reportDir: 'html',
+                        reportFiles: 'index.html',
+                        reportName: 'VitestReport',
+                        reportTitles: '',
+                        useWrapperFileDirectly: true
+                    ])
+                }
+            }
+        }
+        
+        stage('E2E Tests') {
+            agent { 
+                docker { 
+                    image 'mcr.microsoft.com/playwright:v1.57.0-noble'
+                }
+            }
+            steps {
+                sh 'npm install'
+                sh 'npm run test:e2e'
+            }
+            post {
+                always {
+                    publishHTML([
+                        allowMissing: true,
+                        alwaysLinkToLastBuild: false,
+                        icon: '',
+                        keepAll: true,
+                        reportDir: 'playwright-report',
+                        reportFiles: 'index.html',
+                        reportName: 'PlaywrightReport',
+                        reportTitles: '',
+                        useWrapperFileDirectly: true
+                    ])
+                }
             }
         }
     }
