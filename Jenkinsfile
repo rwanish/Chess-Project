@@ -28,12 +28,10 @@ pipeline {
                     publishHTML([
                         allowMissing: true,
                         alwaysLinkToLastBuild: false,
-                        icon: '',
                         keepAll: true,
                         reportDir: 'html',
                         reportFiles: 'index.html',
                         reportName: 'VitestReport',
-                        reportTitles: '',
                         useWrapperFileDirectly: true
                     ])
                 }
@@ -55,12 +53,10 @@ pipeline {
                     publishHTML([
                         allowMissing: true,
                         alwaysLinkToLastBuild: false,
-                        icon: '',
                         keepAll: true,
-                        reportDir: 'html',
+                        reportDir: 'playwright-report',
                         reportFiles: 'index.html',
-                        reportName: 'VitestReport'
-                        reportTitles: '',
+                        reportName: 'PlaywrightReport',
                         useWrapperFileDirectly: true
                     ])
                 }
