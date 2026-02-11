@@ -1,12 +1,5 @@
 pipeline {
-    agent {
-    docker {
-        image 'mcr.microsoft.com/playwright:v1.58.0-noble'
-        reuseNode true
-        args '--dns 1.1.1.1 --dns 8.8.8.8'
-    }
-    }
-
+    agent none
     environment {
     NETLIFY_AUTH_TOKEN = credentials('NETLIFY_TOKEN')
     }
