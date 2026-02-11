@@ -5,9 +5,11 @@ pipeline {
             agent { 
                 docker { 
                     image 'mcr.microsoft.com/playwright:v1.58.0-noble'
+                    reuseNode true
                 }
             }
             steps {
+                sh 'rm -rf node_modules package-lock.json'
                 sh 'npm install'
                 sh 'npm run build'
             }
@@ -17,6 +19,7 @@ pipeline {
             agent { 
                 docker { 
                     image 'mcr.microsoft.com/playwright:v1.58.0-noble'
+                    reuseNode true
                 }
             }
             steps {
@@ -32,7 +35,7 @@ pipeline {
                         reportDir: 'html',
                         reportFiles: 'index.html',
                         reportName: 'VitestReport',
-                        useWrapperFileDirectly: true
+                        useWrapperFileDirectally: true
                     ])
                 }
             }
@@ -42,6 +45,7 @@ pipeline {
             agent { 
                 docker { 
                     image 'mcr.microsoft.com/playwright:v1.58.0-noble'
+                    reuseNode true
                 }
             }
             steps {
