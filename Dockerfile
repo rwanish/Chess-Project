@@ -2,7 +2,10 @@
 FROM node:lts-alpine AS build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN npm i
+RUN npm config set fetch-retries 5 \
+ && npm config set fetch-retry-mintimeout 20000 \
+ && npm config set fetch-retry-maxtimeout 120000 \
+ && npm ci --no-audit --fund=false
 COPY . .
 RUN npm run build
 # Production stage
