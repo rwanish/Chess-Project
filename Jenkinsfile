@@ -70,5 +70,35 @@ pipeline {
                 }
             }
         }
+        
+        stage('Deploy') {
+            when {
+                branch 'main'
+            }
+            agent any
+            steps {
+                sh 'echo "Déploiement en production sur main"'
+            }
+        }
+        
+        stage('Docker Build & Push') {
+            when {
+                branch 'main'
+            }
+            agent any
+            environment {
+                CI_REGISTRY = 'ghcr.io'
+                CI_REGISTRY_USER = 'rwanish'
+                CI_REGISTRY_IMAGE = "${CI_REGISTRY}/${CI_REGISTRY_USER}/chess"
+                CI_REGISTRY_PASSWORD = credentials('CI_REGISTRY_PASSWORD')
+            }
+            steps {
+                sh 'docker build --network=host -t $CI_REGISTRY_IMAGE .'
+                sh 'echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY'
+                sh 'docker push $CI_REGISTRY_IMAGE'
+            }
+        }
+
+
     }
 }
