@@ -20,6 +20,7 @@
     "@vitejs/plugin-vue": "^6.0.1",
     "@vitest/ui": "^4.0.18",
     "jsdom": "^27.4.0",
+    "netlify-cli": "^23.15.1",
     "vite": "^7.2.4",
     "vitest": "^4.0.18"
   }

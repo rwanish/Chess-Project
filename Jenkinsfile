@@ -1,7 +1,11 @@
 pipeline {
     agent none
+    environment {
+    NETLIFY_AUTH_TOKEN = credentials('NETLIFY_TOKEN')
+    }
     stages {
         stage('Build') {
+            when { branch 'master' }
             agent { 
                 docker { 
                     image 'mcr.microsoft.com/playwright:v1.58.0-noble'
