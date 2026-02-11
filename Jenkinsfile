@@ -35,7 +35,7 @@ pipeline {
                         reportDir: 'html',
                         reportFiles: 'index.html',
                         reportName: 'VitestReport',
-                        useWrapperFileDirectally: true
+                        useWrapperFileDirectly: true
                     ])
                 }
             }
